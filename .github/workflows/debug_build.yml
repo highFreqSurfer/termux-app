@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        package_variant: [ apt-android-7, apt-android-5 ]
+        package_variant: [ apt-android-7 ]
 
     steps:
       - name: Clone repository
@@ -33,6 +33,8 @@ jobs:
           if [ "$GITHUB_EVENT_NAME" == "pull_request" ]; then
               GITHUB_SHA="${{ github.event.pull_request.head.sha }}" # Do not use last merge commit set in GITHUB_SHA
           fi
+
+           export TERMUX_NO_BOOTSTRAP=1
 
           # Set RELEASE_VERSION_NAME to "<CURRENT_VERSION_NAME>+<last_commit_hash>"
           CURRENT_VERSION_NAME_REGEX='\s+versionName "([^"]+)"$'
